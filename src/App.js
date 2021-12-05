@@ -1,5 +1,6 @@
 import React from 'react';
-import './reset.css';
+
+import './reset.scss';
 
 function App() {
   return (
