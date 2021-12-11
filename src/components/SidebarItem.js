@@ -2,19 +2,29 @@ import React, { useState } from 'react';
 
 import RemoveSvg from '../assets/img/remove.svg';
 
-const SidebarItem = ({ src, alt, hex, isDeleteble, title}) => {
+const SidebarItem = ({ id, src, alt, hex, isDeletable, title, onDelete}) => {
     const [deleteBtn, setDeleteBtn] = useState(false);
     const [activeBtn, setActiveBtn] = useState(false);
 
+    const handleListDelete = () => {
+        onDelete(id);
+    }
+
     return (
-        <button className={`bar__item ${activeBtn ? 'bar__item-active' : ''}`}
-                onClick={() => setActiveBtn(true)}
-                onMouseEnter={() => setDeleteBtn(true)}
-                onMouseLeave={() => setDeleteBtn(false)}>
-            {src && <img className='icon' src={src} alt={alt}/>} 
-            {hex && <div style={{background: hex}}></div>} 
+        <button onClick={() => setActiveBtn(true)}
+            className={`bar__item ${activeBtn ? 'bar__item-active' : ''}`}
+            onMouseEnter={() => setDeleteBtn(true)}
+            onMouseLeave={() => setDeleteBtn(false)}>
+            {src && 
+                <img className='icon' src={src} alt={alt}/>} 
+            {hex && 
+                <div style={{background: hex}}></div>} 
             <span>{title}</span>
-            {isDeleteble && <img className={`remove ${deleteBtn ? 'visible' : 'hidden'}`} src={RemoveSvg} alt={'remove'}/>}
+            {isDeletable && 
+                <img onClick={handleListDelete}
+                    className={`remove ${deleteBtn ? 'visible' : 'hidden'}`} 
+                    src={RemoveSvg} 
+                    alt={'remove'}/>}
         </button>
     );
   }

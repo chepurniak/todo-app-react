@@ -20,15 +20,26 @@ function App() {
       .then(({ data }) => {
         setLists(data);
       });
-    axios.get('http://localhost:3001/colors').then(({ data }) => {
+    axios.get('http://localhost:3001/colors')
+      .then(({ data }) => {
       setColors(data);
     });
   }, []);
+
+  const handleListDelete = (id) => {
+    console.log('del '+id)
+  }
+
+  const getColorHex = (id) => {
+    const color = colors.filter( item => item.id === id );
+    return color[0] ? color[0].hex : '#C9D1D3'
+  }
 
 
   return (
     <>
     <div className='app'>
+      
       <div className='app__sidebar overflow-y'>
         <div>
           <SidebarItem
@@ -38,27 +49,22 @@ function App() {
           />
           
           <ul className='bar__list'>
+          {lists ? lists.map(
+            ({id, name, colorId, tasks}) => (
+              <li key={id}>
+                <SidebarItem
+                  id={id}
+                  title={name}
+                  hex={getColorHex(colorId)}
+                  onDelete={handleListDelete}
+                  isDeletable
+                />
+              </li>
+            )) : 
             <li>
-              <SidebarItem
-                title={'Task 1'}
-                hex={'#B6E6BD'}
-                isDeleteble
-              />
-            </li>
-            <li>
-              <SidebarItem
-                title={'Task 1'}
-                hex={'#B6E6BD'}
-                isDeleteble
-              />
-            </li>
-            <li>
-              <SidebarItem
-                title={'Task 1'}
-                hex={'#B6E6BD'}
-                isDeleteble
-              />
-            </li>
+              <p className={'no-lists no-lists_title'}>No lists :(</p>
+              <p className={'no-lists'}>Create your first list</p>
+            </li>}
           </ul>
 
           <button className='bar__item  bar__item_with-img'>
@@ -67,8 +73,14 @@ function App() {
           </button>
 
         </div>
+
       </div>
+
       <div className='app__tasks overflow-y'></div>
+
+      
+
+      
     </div>
     </>
   );

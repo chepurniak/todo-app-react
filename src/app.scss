@@ -2,6 +2,7 @@
     font-family: 'Roboto';
     font-size: 18px;
     font-weight: 400;
+    color: #444444;
 }
 
 .app{
@@ -59,6 +60,7 @@
             box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
             transform: scale(1.02);
             z-index: 1;
+            padding-right: 30px;
         }
         &-active{
             background: #fff;
@@ -67,9 +69,11 @@
         & > span{
             display: inline-block;
             font-weight: 400;
-            color: #444444;
             height: 24px;
             margin-left: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         & > img {
             height: 16px;
@@ -81,18 +85,31 @@
                 top: 36%;
                 right: 7%;
                 height: 12px;
-                transition: 0.6s ease-in-out;
+                transition: 0.3s ease-in-out;
                 &:hover {
                     transform: scale(1.5);
                 }
             }
         }
         & > div{
-            width: 16px;
-            height: 16px;
+            min-width: 16px;
+            min-height: 16px;
             border-radius: 50%;
         }
     }
+}
+
+.add-list{
+    height: 150px;
+    width: 240px;
+    background: #ffffff;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 18px;
+    box-sizing: border-box;
+    position: relative;
+    bottom: 20px;
+    left: -10px;
 }
 
 .visible{
@@ -103,6 +120,16 @@
 .hidden{
     opacity: 0;
     visibility: hidden;
+}
+
+.no-lists{
+    font-size: 14px;
+    text-align: center;
+    &_title{
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 3px;
+    }
 }
 
 .overflow{
