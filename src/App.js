@@ -13,6 +13,7 @@ function App() {
 
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState([]);
+  const [activeList, setActiveList] = useState(-1);
 
   useEffect(() => {
     axios
@@ -25,6 +26,11 @@ function App() {
       setColors(data);
     });
   }, []);
+
+  const handleListActive = (id) => {
+    console.log('active '+id)
+    setActiveList(id)
+  }
 
   const handleListDelete = (id) => {
     console.log('del '+id)
@@ -46,6 +52,9 @@ function App() {
             title={'All tasks'}
             src={ListSvg} 
             alt={'list icon'}
+            onActive={handleListActive}
+            isActive={activeList === 0}
+            isAllTasks 
           />
           
           <ul className='bar__list'>
@@ -57,7 +66,9 @@ function App() {
                   title={name}
                   hex={getColorHex(colorId)}
                   onDelete={handleListDelete}
+                  onActive={handleListActive}
                   isDeletable
+                  isActive={activeList === id} 
                 />
               </li>
             )) : 
