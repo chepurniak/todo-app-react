@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 import RemoveSvg from '../assets/img/remove.svg';
 
-const SidebarItem = ({ id, src, alt, hex, title, onDelete, onActive, isAllTasks, isDeletable, isActive}) => {
+const SidebarItem = ({ id, title, src, alt, hex, onDelete, onActive, isAllTasks, isDeletable, isActive}) => {
     const [deleteBtn, setDeleteBtn] = useState(false);
-    //const [activeBtn, setActiveBtn] = useState(false);
 
     const handleListActive = () => {
         isAllTasks ? onActive(0) : onActive(id);

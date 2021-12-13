@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import SidebarItem from './components/SidebarItem';
+import List from './components/List';
 
 import ListSvg from './assets/img/list.svg';
 import AddSvg from './assets/img/add.svg';
@@ -12,8 +13,7 @@ import './app.scss';
 function App() {
 
   const [lists, setLists] = useState(null);
-  const [colors, setColors] = useState([]);
-  const [activeList, setActiveList] = useState(-1);
+  const [activeList, setActiveList] = useState(0);
 
   useEffect(() => {
     axios
@@ -21,10 +21,7 @@ function App() {
       .then(({ data }) => {
         setLists(data);
       });
-    axios.get('http://localhost:3001/colors')
-      .then(({ data }) => {
-      setColors(data);
-    });
+    
   }, []);
 
   const handleListActive = (id) => {
@@ -35,12 +32,6 @@ function App() {
   const handleListDelete = (id) => {
     console.log('del '+id)
   }
-
-  const getColorHex = (id) => {
-    const color = colors.filter( item => item.id === id );
-    return color[0] ? color[0].hex : '#C9D1D3'
-  }
-
 
   return (
     <>
@@ -59,12 +50,12 @@ function App() {
           
           <ul className='bar__list'>
           {lists ? lists.map(
-            ({id, name, colorId, tasks}) => (
+            ({id, name, color}) => (
               <li key={id}>
                 <SidebarItem
                   id={id}
                   title={name}
-                  hex={getColorHex(colorId)}
+                  hex={color.hex}
                   onDelete={handleListDelete}
                   onActive={handleListActive}
                   isDeletable
@@ -87,7 +78,39 @@ function App() {
 
       </div>
 
-      <div className='app__tasks overflow-y'></div>
+      <div className='app__tasks overflow-y'>
+        
+      {lists
+        ? (activeList === 0  
+          ? lists.map(
+            ({id, name, tasks, color}) => (
+              <List
+                key={id}
+                id={id}
+                name={name}
+                hex={color.hex}
+                tasks={tasks}
+              />
+            ))   
+          : lists.filter(list => list.id === activeList)
+            .map(
+              ({id, name, tasks, color}) => (
+              <List
+                key={id}
+                id={id}
+                name={name}
+                hex={color.hex}
+                tasks={tasks}
+              />
+            ))
+          )
+        :<>
+          <p className={'no-lists no-lists_title'}>No lists :(</p>
+          <p className={'no-lists'}>Create your first list</p>
+        </>
+      }
+
+      </div>
 
       
 
@@ -96,6 +119,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

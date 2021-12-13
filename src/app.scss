@@ -16,6 +16,7 @@
     box-shadow: 2px 2px 20px #dddcdc;
     border-radius: 10px;
     border: 1px solid #f1f1f1;
+    overflow: hidden;
     
     &__sidebar{
         background-color: #f4f6f8;
@@ -29,7 +30,7 @@
 
     &__tasks {
         flex: 1;
-        padding: 60px;
+        padding: 60px 80px;
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -77,9 +78,6 @@
         }
         & > img {
             height: 16px;
-            &.icon{ 
-                
-            }
             &.remove{
                 position: absolute;
                 top: 36%;
@@ -98,6 +96,83 @@
         }
     }
 }
+
+.tasks{
+    &__title{
+        animation-duration: 0.8s;
+        animation-name: slidein;
+        font-size: 46px;
+        font-weight: 500;
+        margin-bottom: 50px;
+        position: relative;
+        &::after{
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #F2F2F2;
+        }
+    }
+    &__wrapper{
+        margin-bottom: 30px;
+    }
+    &__task{
+        margin-bottom: 12px;
+        animation-duration: 1s;
+        animation-name: slidein;
+        & > label{
+            font-size: 18px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        &:hover{
+            cursor: pointer;
+        }
+    }
+  
+}
+
+
+.custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    &+label {
+        display: inline-flex;
+        align-items: center;
+        &:before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            flex-grow: 0;
+            border: 1px solid #adb5bd;
+            border-radius: 50%;
+            margin-right: 14px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50% 50%;
+            transition: 0.3s ease-in-out;
+        }
+        &:hover:before{
+            transform: scale(1.1);
+            background: #d3e9dc;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50% 50%;
+            cursor: pointer;
+        }
+    }
+    &:checked+label::before {
+        border-color: #4DD599;
+        background-color: #4DD599;
+        background-image: url("assets/img/check.svg");
+    }
+  }
 
 .add-list{
     height: 150px;
@@ -123,6 +198,8 @@
 }
 
 .no-lists{
+    animation-duration: 1s;
+    animation-name: slidein;
     font-size: 14px;
     text-align: center;
     &_title{
@@ -153,3 +230,16 @@
     }
 }
 
+@keyframes slidein {
+    from {
+      margin-left: 40%;
+      width: 300%;
+      opacity: 0;
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+      opacity: 1;
+    }
+  }
