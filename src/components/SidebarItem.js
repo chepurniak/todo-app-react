@@ -15,7 +15,7 @@ const SidebarItem = ({ id, title, src, alt, hex, onDelete, onActive, isAllTasks,
 
     return (
         <button onClick={handleListActive}
-            className={`bar__item ${isActive ? 'bar__item-active' : ''}`}
+            className={`bar__item ${isActive ? 'bar__item_active' : ''}`}
             onMouseEnter={() => setDeleteBtn(true)}
             onMouseLeave={() => setDeleteBtn(false)}>
             {src && 

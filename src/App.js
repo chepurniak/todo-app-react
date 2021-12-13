@@ -3,9 +3,10 @@ import axios from 'axios';
 
 import SidebarItem from './components/SidebarItem';
 import List from './components/List';
+import AddList from './components/AddList';
+import AddListForm from './components/AddListForm';
 
 import ListSvg from './assets/img/list.svg';
-import AddSvg from './assets/img/add.svg';
 
 import './reset.scss';
 import './app.scss';
@@ -14,30 +15,42 @@ function App() {
 
   const [lists, setLists] = useState(null);
   const [activeList, setActiveList] = useState(0);
+  const [showListForm, setShowListForm] = useState(false);
+  const [colors, setColors] = useState([]);
 
   useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-      });
-    
+    });
+    axios.get('http://localhost:3001/colors')
+      .then(({ data }) => {
+      setColors(data);
+    });
   }, []);
 
+  const toggleListAdd = () => {
+    showListForm ? setShowListForm(false) : setShowListForm(true);
+}
+
   const handleListActive = (id) => {
-    console.log('active '+id)
-    setActiveList(id)
+    setActiveList(id);
+  }
+
+  const handleListAdd = (title, color) => {
+    console.log('add '+ title + ' ' + color);
   }
 
   const handleListDelete = (id) => {
-    console.log('del '+id)
+    console.log('del '+ id);
   }
 
   return (
     <>
     <div className='app'>
       
-      <div className='app__sidebar overflow-y'>
+      <div className='app__sidebar'>
         <div>
           <SidebarItem
             title={'All tasks'}
@@ -48,7 +61,7 @@ function App() {
             isAllTasks 
           />
           
-          <ul className='bar__list'>
+          <ul className='bar__list overflow-y'>
           {lists ? lists.map(
             ({id, name, color}) => (
               <li key={id}>
@@ -69,10 +82,8 @@ function App() {
             </li>}
           </ul>
 
-          <button className='bar__item  bar__item_with-img'>
-            <img src={AddSvg} alt='list icon'/> 
-            <span>Add list</span>
-          </button>
+          <AddList
+          toggleListAdd={toggleListAdd}/>
 
         </div>
 
@@ -114,7 +125,9 @@ function App() {
 
       
 
-      
+      {showListForm && 
+          <AddListForm
+          colors={colors}/>}
     </div>
     </>
   );
