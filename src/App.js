@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import SidebarItem from './components/SidebarItem';
-import List from './components/List';
-import AddList from './components/AddList';
-import AddListForm from './components/AddListForm';
+import { SidebarItem, List, AddList, AddListForm } from './components';
 
 import ListSvg from './assets/img/list.svg';
 
@@ -17,12 +14,14 @@ function App() {
   const [activeList, setActiveList] = useState(0);
   const [showListForm, setShowListForm] = useState(false);
   const [colors, setColors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
+        setActiveList(data[0].id);
     });
     axios.get('http://localhost:3001/colors')
       .then(({ data }) => {
@@ -39,11 +38,57 @@ function App() {
   }
 
   const handleListAdd = (title, color) => {
-    console.log('add '+ title + ' ' + color);
+    setIsLoading(true);
+    axios.post('http://localhost:3001/lists', {
+      name: title,
+      colorId: color
+    }).then(({ data }) => {
+      const newList = { 
+        ...data, 
+        tasks: [], 
+        color: colors.filter(c => c.id === color)[0] 
+      };
+      setLists([...lists, newList]);
+    })
+    .catch(() => {
+      alert('Error');
+    })
+    .finally(() => {
+      toggleListAdd();
+      setIsLoading(false);
+    });
+  }
+
+  const handleListEdit = (id, title) => {
+    const editedList = lists.map(item => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+    setLists(editedList);
+    setIsLoading(true);
+
+    axios.patch('http://localhost:3001/lists/' + id, {
+      name: title
+    })
+    .catch(() => {
+      alert('Error by title editing :(');
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
   }
 
   const handleListDelete = (id) => {
-    console.log('del '+ id);
+    if (window.confirm('Вы действительно хотите удалить список?')) {
+      axios.delete('http://localhost:3001/lists/' + id)
+      .then(() => {
+        const newLists = lists.filter(list => list.id !== id);
+        setLists(newLists);
+        setActiveList(0);
+      });
+    }
   }
 
   return (
@@ -96,11 +141,12 @@ function App() {
           ? lists.map(
             ({id, name, tasks, color}) => (
               <List
-                key={id}
+                key={`${id}_from_all`}
                 id={id}
                 name={name}
                 hex={color.hex}
                 tasks={tasks}
+                onListEdit={handleListEdit}
               />
             ))   
           : lists.filter(list => list.id === activeList)
@@ -112,6 +158,7 @@ function App() {
                 name={name}
                 hex={color.hex}
                 tasks={tasks}
+                onListEdit={handleListEdit}
               />
             ))
           )
@@ -127,7 +174,10 @@ function App() {
 
       {showListForm && 
           <AddListForm
-          colors={colors}/>}
+          onClose={toggleListAdd}
+          onAdd={handleListAdd}
+          colors={colors}
+          isLoading={isLoading}/>}
     </div>
     </>
   );

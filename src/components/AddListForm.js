@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
-const AddListForm = ({colors}) => {
+import CloseSvg from '../assets/img/close.svg';
 
-    const [activeColor, setActiveColor] = useState(1);
+const AddListForm = ({colors, onClose, onAdd, isLoading}) => {
+
+    const [activeColor, setActiveColor] = useState(2);
     const [title, setTitle] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(title+': '+activeColor);
         setTitle('');
+        onAdd(title, activeColor);
     }
 
     return(
@@ -17,6 +19,7 @@ const AddListForm = ({colors}) => {
                 <input className={'add-list__input'}
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
+                    disabled={isLoading}
                 />
                 <div className={'add-list__colors-wrapper'}>
                     {colors && colors.map((color)=>(
@@ -30,8 +33,12 @@ const AddListForm = ({colors}) => {
                 <input className={'add-list__submit'} 
                     style={{background: colors.filter(color => color.id === activeColor)[0].hex}}
                     type={'submit'}
-                    value={'Add list'}
+                    value={isLoading ? 'Adding...' : 'Add list'}
                 />
+                <img className={'add-list__close'} 
+                    src={CloseSvg} 
+                    alt='close icon'
+                    onClick={onClose}/> 
             </form>
         </div>
     );
