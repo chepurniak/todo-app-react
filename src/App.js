@@ -22,7 +22,6 @@ function App() {
       .then(({ data }) => {
         setLists(data);
         if(!localStorage.getItem('activeList')){setActiveList(data[0].id);}
-        console.log(lists)
     });
     axios.get('http://localhost:3001/colors')
       .then(({ data }) => {
@@ -164,7 +163,8 @@ function App() {
   }
 
   return (
-    <div className='app'>
+    <>
+    {window.screen.width > 1023 ? <div className='app'>
       
       <div className='app__sidebar'>
         <div>
@@ -255,7 +255,8 @@ function App() {
           onAdd={handleListAdd}
           colors={colors}
           isLoading={isLoading}/>}
-    </div>
+    </div> : <p>Please open the application on display with width bigger than 1024px</p>}
+    </>
   );
 }
 

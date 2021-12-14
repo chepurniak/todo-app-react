@@ -1,8 +1,8 @@
 {
   "lists": [
     {
-      "name": "Uni",
-      "colorId": 2,
+      "name": "Work",
+      "colorId": 3,
       "id": 1
     },
     {
@@ -11,8 +11,8 @@
       "id": 2
     },
     {
-      "name": "Work",
-      "colorId": 3,
+      "name": "Uni",
+      "colorId": 2,
       "id": 3
     },
     {
@@ -24,29 +24,34 @@
       "name": "Study",
       "colorId": 6,
       "id": 5
+    },
+    {
+      "name": "To-Do App",
+      "colorId": 5,
+      "id": 6
     }
   ],
   "tasks": [
     {
-      "listId": 1,
+      "listId": 3,
       "text": "Write a mail to prof. A",
       "completed": true,
       "id": 2
     },
     {
-      "listId": 1,
+      "listId": 3,
       "text": "Make a project \"B\"",
       "completed": false,
       "id": 3
     },
     {
-      "listId": 1,
+      "listId": 3,
       "text": "Read an article on thema \"H\"",
       "completed": false,
       "id": 4
     },
     {
-      "listId": 1,
+      "listId": 3,
       "text": "Visit lecture N",
       "completed": true,
       "id": 5
@@ -70,31 +75,31 @@
       "id": 9
     },
     {
-      "listId": 3,
+      "listId": 1,
       "text": "Make a CV",
       "completed": true,
       "id": 10
     },
     {
-      "listId": 3,
-      "text": "Finish portfolio project",
+      "listId": 1,
+      "text": "Finish a portfolio project",
       "completed": true,
       "id": 11
     },
     {
-      "listId": 3,
+      "listId": 1,
       "text": "Send a resumee",
       "completed": true,
       "id": 12
     },
     {
-      "listId": 3,
+      "listId": 1,
       "text": "Pass an interview",
       "completed": false,
       "id": 13
     },
     {
-      "listId": 3,
+      "listId": 1,
       "text": "Go to the office",
       "completed": false,
       "id": 14
@@ -182,6 +187,24 @@
       "text": "Docker",
       "completed": true,
       "id": 28
+    },
+    {
+      "listId": 6,
+      "text": "Routing",
+      "completed": false,
+      "id": 29
+    },
+    {
+      "listId": 6,
+      "text": "Bugs fixing",
+      "completed": true,
+      "id": 30
+    },
+    {
+      "listId": 6,
+      "text": "Mobile adaptive",
+      "completed": false,
+      "id": 31
     }
   ],
   "colors": [

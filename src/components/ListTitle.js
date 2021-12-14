@@ -25,6 +25,7 @@ const ListTitle = ({ id, name, hex, onListEdit }) => {
                     className={'tasks__input overflow-x'}
                     style={{color: hex, borderBottom: `2px solid ${isEditable ? hex : 'transparent'}`}}
                     value={title}
+                    required={true}
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={e => {if(e.key === 'Enter'){handleListEdit()}}}
                     disabled={!isEditable}
