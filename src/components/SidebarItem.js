@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import RemoveSvg from '../assets/img/remove.svg';
 
 const SidebarItem = ({ id, title, src, alt, hex, onDelete, onActive, isAllTasks, isDeletable, isActive}) => {
+    
     const [deleteBtn, setDeleteBtn] = useState(false);
 
     const handleListActive = () => {
@@ -23,11 +24,11 @@ const SidebarItem = ({ id, title, src, alt, hex, onDelete, onActive, isAllTasks,
             {hex && 
                 <div style={{background: hex}}></div>} 
             <span>{title}</span>
-            {isDeletable && 
+            {isDeletable && deleteBtn &&
                 <img onClick={handleListDelete}
                     className={`remove ${deleteBtn ? 'visible' : 'hidden'}`} 
                     src={RemoveSvg} 
-                    alt={'remove'}/>}
+                    alt={'remove list icon'}/>}
         </button>
     );
   }

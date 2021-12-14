@@ -10,7 +10,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 1080px;
+    width: 1020px;
     height: 680px;
     transform: translate(-50%, -50%);
     box-shadow: 2px 2px 20px #dddcdc;
@@ -111,7 +111,7 @@
         margin-bottom: 50px;
         position: relative;
         cursor: default;
-        &::after{
+        &:after{
             content: "";
             position: absolute;
             bottom: -10px;
@@ -141,17 +141,24 @@
         margin-bottom: 30px;
     }
     &__task{
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 12px;
         animation-duration: 1s;
         animation-name: slidein;
+        transition: 0.3s ease-in-out;
         & > label{
             font-size: 18px;
-            &:hover{
-                cursor: pointer;
-            }
-        }
-        &:hover{
             cursor: pointer;
+            padding-right: 20px;
+        }
+    }
+    &__delete{
+        cursor: pointer;
+        display: inline-block;
+        padding: 7px;
+        &:hover{
+            transform: scale(1.6);
         }
     }
   
@@ -180,6 +187,12 @@
             background-size: 50% 50%;
             transition: 0.3s ease-in-out;
         }
+        &.close{
+            &::before{
+                transform: scale(1.2);
+                border: 1px solid rgb(223, 71, 89);
+            }
+        }
         &:hover:before{
             transform: scale(1.1);
             background: #d3e9dc;
@@ -189,10 +202,18 @@
             cursor: pointer;
         }
     }
-    &:checked+label::before {
-        border-color: #4DD599;
-        background-color: #4DD599;
-        background-image: url("assets/img/check.svg");
+    &:checked+label{
+        &::before {
+            border-color: #4DD599;
+            background-color: #4DD599;
+            background-image: url("assets/img/check.svg");
+        }
+        &.close{
+            &::before{
+                border: 1px solid rgb(223, 71, 89);
+                transform: scale(1.2);
+            }
+        }
     }
   }
 
@@ -265,8 +286,10 @@
         top: -8px;
         right: -8px;
         transition: 0.3s ease-in-out;
+        animation-duration: 1s;
+        animation-name: slidein;
         &:hover{
-            transform: scale(1.2);
+            transform: scale(1.4);
         }
     }
 }
@@ -274,11 +297,13 @@
 .visible{
     opacity: 1;
     visibility: visible;
+    transition: 0.3s ease-in-out;
 }
 
 .hidden{
     opacity: 0;
     visibility: hidden;
+    transition: 0.3s ease-in-out;
 }
 
 .no-lists{

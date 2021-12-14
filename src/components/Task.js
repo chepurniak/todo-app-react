@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
-const Task = ({ text, completed, id }) => {
+import RemoveSvg from '../assets/img/remove.svg';
 
+const Task = ({ id, text, completed, onTaskDelete}) => {
+    
+    const [deleteBtn, setDeleteBtn] = useState(false);
+    const [isAttention, setIsAttention] = useState(false);
     const [completedTask, setCompletedTask] = useState(false);
 
     useEffect(() => {
         completed ? setCompletedTask(true) : setCompletedTask(false);
     }, [completed]);
 
-    const updateComplete = () => {
-        completedTask ? setCompletedTask(false) : setCompletedTask(true);
-    }
 
     return(
         <div key={id}
             className='tasks__task' 
-            onClick={() => updateComplete()}>
+            onMouseEnter={() => setDeleteBtn(true)}
+            onMouseLeave={() => setDeleteBtn(false)}>
             <input 
                 type='checkbox' 
                 className='custom-checkbox' 
@@ -23,7 +25,18 @@ const Task = ({ text, completed, id }) => {
                 onChange={function(){}}
                 value={id}
                 checked={completedTask}/>
-            <label htmlFor='happy'>{text}</label>
+            <label 
+                onClick={() => {completedTask ? setCompletedTask(false) : setCompletedTask(true)}}
+                className={`${isAttention ? 'close' : ''}`}  
+                htmlFor={id}>{text}
+            </label>
+            {deleteBtn &&
+                <img onClick={() => onTaskDelete(id)}
+                    onMouseEnter={() => setIsAttention(true)}
+                    onMouseLeave={() => setIsAttention(false)}
+                    className={`tasks__delete ${deleteBtn ? 'visible' : 'hidden'}`} 
+                    src={RemoveSvg} 
+                    alt={'remove task icon'}/>}
         </div>
     )
 }

@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Task from './Task';
 import ListTitle from './ListTitle';
 
-const List = ({ id, name, hex, tasks, onListEdit }) => {
+const List = ({ id, name, hex, tasks, onListEdit, onTaskDelete }) => {
 
-    const [title, setTitle] = useState(name);
-    const [isEditable, setIsEditable] = useState(false);
-    const [editBtn, setEditBtn] = useState(false);
-    const [confirmBtn, setConfirmBtn] = useState(false);
-
-    const handleListEdit = () => {
-        setConfirmBtn(false); 
-        setIsEditable(false);
-        setEditBtn(false);
-        onListEdit(id, title);
+    const handleTaskDelete = (taskId) => {
+        onTaskDelete(id, taskId);
     }
 
     return(
@@ -31,9 +23,10 @@ const List = ({ id, name, hex, tasks, onListEdit }) => {
                         id={id}
                         text={text}
                         completed={completed}
+                        onTaskDelete={handleTaskDelete}
                     />
-                )
-                ): <p className={'no-lists'}>No tasks</p>}
+                )): <p className={'no-lists'}>No tasks</p>}
+                <button>+ New Task</button>
             </div>
         </div>
     );

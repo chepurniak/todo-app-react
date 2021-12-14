@@ -29,7 +29,7 @@ function App() {
     });
   }, []);
 
-  const toggleListAdd = () => {
+  const toggleListAddForm = () => {
     showListForm ? setShowListForm(false) : setShowListForm(true);
 }
 
@@ -54,7 +54,7 @@ function App() {
       alert('Error');
     })
     .finally(() => {
-      toggleListAdd();
+      toggleListAddForm();
       setIsLoading(false);
     });
   }
@@ -81,14 +81,39 @@ function App() {
   }
 
   const handleListDelete = (id) => {
-    if (window.confirm('Вы действительно хотите удалить список?')) {
-      axios.delete('http://localhost:3001/lists/' + id)
-      .then(() => {
-        const newLists = lists.filter(list => list.id !== id);
-        setLists(newLists);
-        setActiveList(0);
+    axios.delete('http://localhost:3001/lists/' + id)
+    .then(() => {
+      const newLists = lists.filter(list => list.id !== id);
+      setLists(newLists);
+      setActiveList(0);
+    });
+  }
+
+  const handleTaskAdd = () => {
+
+  }
+
+  const handleTaskComplete = () => {
+    
+  }
+
+  const handleTaskDelete = (listId, taskId) => {
+    const newList = lists.map(item => {
+        if (item.id === listId) {
+          item.tasks = item.tasks.filter(task => task.id !== taskId);
+        }
+        return item;
       });
-    }
+      setLists(newList);
+      setIsLoading(true);
+      
+      axios.delete('http://localhost:3001/tasks/' + taskId)
+      .catch(() => {
+        alert('Error by task deleting :(');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -128,7 +153,7 @@ function App() {
           </ul>
 
           <AddList
-          toggleListAdd={toggleListAdd}/>
+          toggleListAdd={toggleListAddForm}/>
 
         </div>
 
@@ -159,6 +184,7 @@ function App() {
                 hex={color.hex}
                 tasks={tasks}
                 onListEdit={handleListEdit}
+                onTaskDelete={handleTaskDelete}
               />
             ))
           )
@@ -174,7 +200,7 @@ function App() {
 
       {showListForm && 
           <AddListForm
-          onClose={toggleListAdd}
+          onClose={toggleListAddForm}
           onAdd={handleListAdd}
           colors={colors}
           isLoading={isLoading}/>}
