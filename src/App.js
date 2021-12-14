@@ -22,6 +22,7 @@ function App() {
       .then(({ data }) => {
         setLists(data);
         if(!localStorage.getItem('activeList')){setActiveList(data[0].id);}
+        console.log(lists)
     });
     axios.get('http://localhost:3001/colors')
       .then(({ data }) => {
@@ -177,7 +178,7 @@ function App() {
           />}
           
           <ul className='bar__list overflow-y'>
-          {lists ? lists.map(
+          {lists && lists.length > 0 ? lists.map(
             ({id, name, color}) => (
               <li key={id}>
                 <SidebarItem
@@ -206,7 +207,7 @@ function App() {
 
       <div className='app__tasks overflow-y'>
         
-      {lists
+      {lists && lists.length > 0
         ? (activeList === 0  
           ? lists.map(
             ({id, name, tasks, color}) => (
