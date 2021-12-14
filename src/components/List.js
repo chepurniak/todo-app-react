@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 
 import Task from './Task';
-
-import EditSvg from '../assets/img/edit.svg';
-import RoundedCheckSvg from '../assets/img/rounded-check.svg';
-
+import ListTitle from './ListTitle';
 
 const List = ({ id, name, hex, tasks, onListEdit }) => {
 
@@ -22,28 +19,11 @@ const List = ({ id, name, hex, tasks, onListEdit }) => {
 
     return(
         <div className={'tasks'}>    
-            <div className='tasks__title' 
-                onMouseEnter={() => setEditBtn(true)}
-                onMouseLeave={() => setEditBtn(false)}>
-                <input type={'text'}
-                    className={'tasks__input'}
-                    style={{color: hex, borderBottom: `2px solid ${isEditable ? hex : 'transparent'}`}}
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    onKeyDown={e => {if(e.key === 'Enter'){handleListEdit()}}}
-                    disabled={!isEditable}
-                />
-                {editBtn && !isEditable && <img 
-                    onClick={() => {setIsEditable(true); setConfirmBtn(true)}} 
-                    className={'tasks__edit'}
-                    src={EditSvg} 
-                    alt='list icon'/>}
-                {confirmBtn && isEditable && <img 
-                    onClick={() => handleListEdit()}
-                    className={'tasks__edit'}
-                    src={RoundedCheckSvg} 
-                    alt='list icon'/>}
-            </div>
+            <ListTitle
+            id={id} 
+            name={name} 
+            hex={hex}
+            onListEdit={onListEdit}/>
             <div className='tasks__wrapper'>
                 {tasks.length!==0 ? tasks.map(({text, completed, id})=>(
                     <Task
@@ -52,7 +32,8 @@ const List = ({ id, name, hex, tasks, onListEdit }) => {
                         text={text}
                         completed={completed}
                     />
-                )): <p className={'no-lists'}>No tasks</p>}
+                )
+                ): <p className={'no-lists'}>No tasks</p>}
             </div>
         </div>
     );
