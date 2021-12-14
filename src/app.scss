@@ -64,7 +64,10 @@
             box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
             transform: scale(1.02);
             z-index: 1;
-            padding-right: 30px;
+            &::after{
+                content: '';
+                padding-right: 22px;
+            }
         }
         &_active{
             background: #fff;
@@ -122,10 +125,12 @@
         }
     }
     &__input{
+        display: block;
         background: transparent;
         margin: 5px 0;
         border: none;
         outline: none;
+        width: 510px;
     }
     &__edit{
         display: block;

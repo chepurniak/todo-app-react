@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import RemoveSvg from '../assets/img/remove.svg';
 
-const Task = ({ id, text, completed, onTaskDelete}) => {
+const Task = ({ id, text, completed, onTaskComplete, onTaskDelete}) => {
     
     const [deleteBtn, setDeleteBtn] = useState(false);
     const [isAttention, setIsAttention] = useState(false);
-    const [completedTask, setCompletedTask] = useState(false);
-
-    useEffect(() => {
-        completed ? setCompletedTask(true) : setCompletedTask(false);
-    }, [completed]);
-
+    const [completedTask, setCompletedTask] = useState(completed);
 
     return(
         <div key={id}
@@ -26,7 +21,7 @@ const Task = ({ id, text, completed, onTaskDelete}) => {
                 value={id}
                 checked={completedTask}/>
             <label 
-                onClick={() => {completedTask ? setCompletedTask(false) : setCompletedTask(true)}}
+                onClick={() => {setCompletedTask(!completedTask); onTaskComplete(id, !completedTask)}}
                 className={`${isAttention ? 'close' : ''}`}  
                 htmlFor={id}>{text}
             </label>

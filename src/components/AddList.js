@@ -9,7 +9,7 @@ const AddList = ({toggleListAdd}) => {
             <button onClick={() => toggleListAdd()}
                 className='bar__item  bar__item_with-img'>
                 <img src={AddSvg} alt='list icon'/> 
-                <span>Add list</span>
+                <span>New list</span>
             </button>
         </div>
     );

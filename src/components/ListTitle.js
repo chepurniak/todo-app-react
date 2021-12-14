@@ -22,7 +22,7 @@ const ListTitle = ({ id, name, hex, onListEdit }) => {
                 onMouseEnter={() => setEditBtn(true)}
                 onMouseLeave={() => setEditBtn(false)}>
                 <input type={'text'}
-                    className={'tasks__input'}
+                    className={'tasks__input overflow-x'}
                     style={{color: hex, borderBottom: `2px solid ${isEditable ? hex : 'transparent'}`}}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}

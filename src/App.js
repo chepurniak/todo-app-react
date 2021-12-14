@@ -93,8 +93,31 @@ function App() {
 
   }
 
-  const handleTaskComplete = () => {
-    
+  const handleTaskComplete = (listId, taskId, isCompleted) => {
+    const newList = lists.map(list => {
+      if (list.id === listId) {
+        list.tasks = list.tasks.map(task => {
+          if (task.id === taskId) {
+            task.completed = isCompleted;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+    setIsLoading(true);
+
+    axios
+      .patch('http://localhost:3001/tasks/' + taskId, {
+        completed: isCompleted
+      })
+      .catch(() => {
+        alert('Не удалось обновить задачу');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   const handleTaskDelete = (listId, taskId) => {
@@ -184,6 +207,7 @@ function App() {
                 hex={color.hex}
                 tasks={tasks}
                 onListEdit={handleListEdit}
+                onTaskComplete={handleTaskComplete}
                 onTaskDelete={handleTaskDelete}
               />
             ))

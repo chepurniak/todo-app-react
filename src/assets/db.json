@@ -2,7 +2,7 @@
   "lists": [
     {
       "id": 1,
-      "name": "Продаж",
+      "name": "Sales",
       "colorId": 5
     },
     {
@@ -41,13 +41,13 @@
       "id": 1,
       "listId": 2,
       "text": "Изучить JavaScript",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
       "listId": 2,
       "text": "Изучить паттерны проектирования",
-      "completed": false
+      "completed": true
     },
     {
       "id": 3,
@@ -59,18 +59,12 @@
       "id": 4,
       "listId": 2,
       "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
+      "completed": true
     },
     {
       "listId": 1,
       "text": "qweqwe",
       "completed": false,
-      "id": 7
-    },
-    {
-      "listId": 1,
-      "text": "qweqwe",
-      "completed": true,
       "id": 8
     },
     {
@@ -88,7 +82,7 @@
     {
       "listId": 2,
       "text": "222",
-      "completed": true,
+      "completed": false,
       "id": 12
     },
     {
