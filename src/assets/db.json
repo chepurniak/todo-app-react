@@ -1,107 +1,99 @@
 {
   "lists": [
     {
-      "id": 1,
-      "name": "Sales",
-      "colorId": 5
+      "name": "Uni",
+      "colorId": 2,
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Фронтенд",
-      "colorId": 4
+      "name": "Sport",
+      "colorId": 4,
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Фильмы и сериалы",
-      "colorId": 3
-    },
-    {
-      "id": 4,
-      "name": "Книги",
-      "colorId": 2
-    },
-    {
-      "id": 5,
-      "name": "Личное",
-      "colorId": 1
-    },
-    {
-      "name": "Спорт",
+      "name": "Work",
       "colorId": 3,
-      "id": 6
-    },
-    {
-      "name": "Курс по ReactJS ToDo",
-      "colorId": 7,
-      "id": 7
+      "id": 3
     }
   ],
   "tasks": [
     {
-      "id": 1,
-      "listId": 2,
-      "text": "Изучить JavaScript",
-      "completed": false
-    },
-    {
-      "id": 2,
-      "listId": 2,
-      "text": "Изучить паттерны проектирования",
-      "completed": true
-    },
-    {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
-    },
-    {
-      "id": 4,
-      "listId": 2,
-      "text": "Redux (redux-observable, redux-saga)",
-      "completed": true
+      "listId": 1,
+      "text": "Write a mail to prof. A",
+      "completed": true,
+      "id": 2
     },
     {
       "listId": 1,
-      "text": "qweqwe",
+      "text": "Make a project \"B\"",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "listId": 1,
+      "text": "Read an article on thema \"H\"",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "listId": 1,
+      "text": "Visit lecture N",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "listId": 2,
+      "text": "Bye proteine",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "listId": 2,
+      "text": "Run 5 km.",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "listId": 2,
+      "text": "Visit fitnesstudio tommorow",
       "completed": false,
       "id": 8
     },
     {
-      "listId": 1,
-      "text": "123",
+      "listId": 2,
+      "text": "Go to the fitnesstudio tommorow",
       "completed": false,
       "id": 9
     },
     {
-      "listId": 4,
-      "text": "Купить 1984!",
+      "listId": 3,
+      "text": "Make a CV",
       "completed": true,
       "id": 10
     },
     {
-      "listId": 2,
-      "text": "222",
-      "completed": false,
+      "listId": 3,
+      "text": "Finish portfolio project",
+      "completed": true,
+      "id": 11
+    },
+    {
+      "listId": 3,
+      "text": "Send a resumee",
+      "completed": true,
       "id": 12
     },
     {
-      "listId": 7,
-      "text": "Сделали сайдбар",
-      "completed": true,
-      "id": 15
+      "listId": 3,
+      "text": "Pass an interview",
+      "completed": false,
+      "id": 13
     },
     {
-      "listId": 7,
-      "text": "Сделали список задач",
-      "completed": true,
-      "id": 16
-    },
-    {
-      "listId": 7,
-      "text": "Сделали удаление и редактирование задач и списков",
-      "completed": true,
-      "id": 17
+      "listId": 3,
+      "text": "Go to the office",
+      "completed": false,
+      "id": 14
     }
   ],
   "colors": [

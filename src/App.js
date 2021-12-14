@@ -11,7 +11,7 @@ import './app.scss';
 function App() {
 
   const [lists, setLists] = useState(null);
-  const [activeList, setActiveList] = useState(0);
+  const [activeList, setActiveList] = useState(parseInt(localStorage.getItem('activeList')) || 0);
   const [showListForm, setShowListForm] = useState(false);
   const [colors, setColors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ function App() {
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-        setActiveList(data[0].id);
+        if(!localStorage.getItem('activeList')){setActiveList(data[0].id);}
     });
     axios.get('http://localhost:3001/colors')
       .then(({ data }) => {
@@ -34,6 +34,7 @@ function App() {
 }
 
   const handleListActive = (id) => {
+    localStorage.setItem('activeList', id);
     setActiveList(id);
   }
 
@@ -49,6 +50,7 @@ function App() {
         color: colors.filter(c => c.id === color)[0] 
       };
       setLists([...lists, newList]);
+      handleListActive(data.id);
     })
     .catch(() => {
       alert('Error');
@@ -89,8 +91,29 @@ function App() {
     });
   }
 
-  const handleTaskAdd = () => {
-
+  const handleTaskAdd = (listId, title) => {
+    setIsLoading(true);
+    axios
+      .post('http://localhost:3001/tasks', {
+        listId: listId,
+        text: title,
+        completed: false
+      })
+      .then(({ data }) => {
+        const newList = lists.map(item => {
+          if (item.id === listId) {
+            item.tasks = [...item.tasks, data];
+          }
+          return item;
+        });
+        setLists(newList);        
+      })
+      .catch(e => {
+        alert('Ошибка при добавлении задачи!');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   const handleTaskComplete = (listId, taskId, isCompleted) => {
@@ -140,19 +163,18 @@ function App() {
   }
 
   return (
-    <>
     <div className='app'>
       
       <div className='app__sidebar'>
         <div>
-          <SidebarItem
+          {(lists && lists.length > 1) && <SidebarItem
             title={'All tasks'}
             src={ListSvg} 
             alt={'list icon'}
             onActive={handleListActive}
             isActive={activeList === 0}
             isAllTasks 
-          />
+          />}
           
           <ul className='bar__list overflow-y'>
           {lists ? lists.map(
@@ -170,7 +192,7 @@ function App() {
               </li>
             )) : 
             <li>
-              <p className={'no-lists no-lists_title'}>No lists :(</p>
+              <p className={'no-lists no-lists_title'}>No lists </p>
               <p className={'no-lists'}>Create your first list</p>
             </li>}
           </ul>
@@ -195,6 +217,9 @@ function App() {
                 hex={color.hex}
                 tasks={tasks}
                 onListEdit={handleListEdit}
+                onTaskAdd={handleTaskAdd}
+                onTaskComplete={handleTaskComplete}
+                onTaskDelete={handleTaskDelete}
               />
             ))   
           : lists.filter(list => list.id === activeList)
@@ -207,13 +232,14 @@ function App() {
                 hex={color.hex}
                 tasks={tasks}
                 onListEdit={handleListEdit}
+                onTaskAdd={handleTaskAdd}
                 onTaskComplete={handleTaskComplete}
                 onTaskDelete={handleTaskDelete}
               />
             ))
           )
         :<>
-          <p className={'no-lists no-lists_title'}>No lists :(</p>
+          <p className={'no-lists no-lists_big'}>No lists</p>
           <p className={'no-lists'}>Create your first list</p>
         </>
       }
@@ -229,7 +255,6 @@ function App() {
           colors={colors}
           isLoading={isLoading}/>}
     </div>
-    </>
   );
 }
 

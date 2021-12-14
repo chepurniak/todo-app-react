@@ -101,6 +101,9 @@
             border-radius: 50%;
         }
     }
+    &__add-btn > span{
+        color: #bbb;
+    }
 }
 
 .tasks{
@@ -153,9 +156,16 @@
         animation-name: slidein;
         transition: 0.3s ease-in-out;
         & > label{
+            padding: 1px 3px;
+            display: inline-block;
+            max-width: 560px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
             font-size: 18px;
             cursor: pointer;
-            padding-right: 20px;
+            padding-right: 10px;
         }
     }
     &__delete{
@@ -243,9 +253,12 @@
         border-radius: 6px;
         padding: 5px 10px;
         margin-bottom: 14px;
+        &::placeholder{
+            color:#ccc;
+        }
         &:focus{
             outline: none;
-            border-color: #4DD599;
+            border-color: #42B883;
         }
     }
     &__colors-wrapper{
@@ -256,7 +269,6 @@
         width: 22px;
         height: 22px;
         border-radius: 50%;
-        background: red;
         transition: 0.3s ease-in-out;
         &_active{
             border: 2px solid #444444;
@@ -275,7 +287,6 @@
         width: 100%;
         height: 40px;
         color: #fff;
-        background-color: #4DD599;
         border: none;
         border-radius: 6px;
         transition: 0.3s ease-in-out;
@@ -299,6 +310,78 @@
     }
 }
 
+.add-task{
+    &__wrapper{
+        animation-duration: 1s;
+        animation-name: slidein;
+        margin-top: 30px;
+    }
+    &__new{
+        background: transparent;
+        display: flex; 
+        width: 120px;
+        height: 40px;
+        cursor: pointer;
+        justify-content: flex-start;
+        align-items: center;
+        border: none;
+        transition: 0.3s ease-in-out;
+        &:hover{
+            transform: scale(1.05);
+        }
+        & > img{
+            margin-right: 16px;
+        }
+        & > span{
+            color: #bbb
+        }
+    }
+    &__input{
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 6px 14px;
+        margin: 14px 0;
+        &::placeholder{
+            color:#ccc;
+        }
+        &:focus{
+            outline: none;
+            border-color: #42B883;
+        }
+    }
+    &__submit{
+        width: 160px;
+        height: 40px;
+        background-color: #42B883;
+        border: none;
+        border-radius: 6px;
+        transition: 0.3s ease-in-out;
+        margin-right: 10px;
+        & > span {
+            color: #fff;
+        }
+        &:hover{
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        }
+    }
+    &__cancel{
+        width: 100px;
+        height: 40px;
+        background-color: #ccc;
+        border: none;
+        border-radius: 6px;
+        transition: 0.3s ease-in-out;
+        margin-right: 10px;
+        & > span {
+            color: #fff;
+        }
+        &:hover{
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
 .visible{
     opacity: 1;
     visibility: visible;
@@ -315,12 +398,24 @@
     animation-duration: 1s;
     animation-name: slidein;
     font-size: 14px;
-    text-align: center;
+    color: #bbb;
+    margin-left: 55px;
     &_title{
         font-weight: 500;
         font-size: 18px;
         letter-spacing: 3px;
     }
+    &_big{
+        font-size: 70px;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+}
+.no-tasks{
+    animation-duration: 1s;
+    animation-name: slidein;
+    font-size: 24px;
+    color: #bbb;
 }
 
 .overflow{

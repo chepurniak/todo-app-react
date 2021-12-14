@@ -17,6 +17,8 @@ const AddListForm = ({colors, onClose, onAdd, isLoading}) => {
         <div className={'add-list__form'}>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <input className={'add-list__input'}
+                    required={true}
+                    placeholder={'Enter a list name'}
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                     disabled={isLoading}

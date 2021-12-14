@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Task from './Task';
-import ListTitle from './ListTitle';
+import { Task, ListTitle, AddTask } from '.';
 
-const List = ({ id, name, hex, tasks, onListEdit, onTaskComplete, onTaskDelete }) => {
+const List = ({ id, name, hex, tasks, onListEdit, onTaskAdd, onTaskComplete, onTaskDelete }) => {
+
+    const handleTaskAdd = (title) => {
+        onTaskAdd(id, title);
+    }
 
     const handleTaskComplete = (taskId, isCompleted) => {
         onTaskComplete(id, taskId, isCompleted);
@@ -30,8 +33,8 @@ const List = ({ id, name, hex, tasks, onListEdit, onTaskComplete, onTaskDelete }
                         onTaskComplete={handleTaskComplete}
                         onTaskDelete={handleTaskDelete}
                     />
-                )): <p className={'no-lists'}>No tasks</p>}
-                
+                )): <p className={'no-tasks'}>No tasks</p>}
+                <AddTask name={name} onTaskAdd={handleTaskAdd}/>
             </div>
         </div>
     );
