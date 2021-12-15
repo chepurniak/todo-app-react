@@ -4,7 +4,7 @@ This project is an To-Do Application.
 
 ## Deployment
 
-The app is deployed on *in future*
+The app is deployed on [Heroku](https://to-do-applic.herokuapp.com/)
 
 ## Run the project
 
