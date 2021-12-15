@@ -8,20 +8,20 @@ The app is deployed on [Heroku](https://to-do-applic.herokuapp.com/)
 
 ## Run the project
 
-Install [Node.js](https://nodejs.org/en/download/)
+Install [Node.js](https://nodejs.org/en/download/). 
 Open the project directory in terminal and run:
 
 `npm i`
 This will install all dependencies.
 
 `npm run j-server`
-Starts a json-server on port 3001, that watchs a file ./src/assets/db.json.
-- [http://localhost:3001/lists](http://localhost:3001/lists)
-- [http://localhost:3001/tasks](http://localhost:3001/tasks)
-- [http://localhost:3001/colors](http://localhost:3001/colors)
+Starts a json-server on port 8000, that watchs a file ./db.json.
+- [http://localhost:8000/lists](http://localhost:8000/lists)
+- [http://localhost:8000/tasks](http://localhost:8000/tasks)
+- [http://localhost:8000/colors](http://localhost:8000/colors)
 
 `npm start`
-Runs the app in the development mode.
+Runs the app on port 3000 in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Functionality
