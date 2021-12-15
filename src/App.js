@@ -10,7 +10,8 @@ import './app.scss';
 
 function App() {
 
-  const JSON_API = 'http://localhost:8000';
+  //const JSON_API = 'http://localhost:8000';
+  const JSON_API = 'https://to-do-applic.herokuapp.com';
 
   const [lists, setLists] = useState(null);
   const [activeList, setActiveList] = useState(parseInt(localStorage.getItem('activeList')) || 0);
