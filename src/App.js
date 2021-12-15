@@ -10,6 +10,8 @@ import './app.scss';
 
 function App() {
 
+  const JSON_API = 'http://localhost:8000';
+
   const [lists, setLists] = useState(null);
   const [activeList, setActiveList] = useState(parseInt(localStorage.getItem('activeList')) || 0);
   const [showListForm, setShowListForm] = useState(false);
@@ -18,12 +20,12 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
+      .get(`${JSON_API}/lists?_expand=color&_embed=tasks`)
       .then(({ data }) => {
         setLists(data);
         if(!localStorage.getItem('activeList')){setActiveList(data[0].id);}
     });
-    axios.get('http://localhost:3001/colors')
+    axios.get(`${JSON_API}/colors`)
       .then(({ data }) => {
       setColors(data);
     });
@@ -40,7 +42,7 @@ function App() {
 
   const handleListAdd = (title, color) => {
     setIsLoading(true);
-    axios.post('http://localhost:3001/lists', {
+    axios.post(`${JSON_API}/lists`, {
       name: title,
       colorId: color
     }).then(({ data }) => {
@@ -71,7 +73,7 @@ function App() {
     setLists(editedList);
     setIsLoading(true);
 
-    axios.patch('http://localhost:3001/lists/' + id, {
+    axios.patch(`${JSON_API}/lists/` + id, {
       name: title
     })
     .catch(() => {
@@ -83,7 +85,7 @@ function App() {
   }
 
   const handleListDelete = (id) => {
-    axios.delete('http://localhost:3001/lists/' + id)
+    axios.delete(`${JSON_API}/lists/` + id)
     .then(() => {
       const newLists = lists.filter(list => list.id !== id);
       setLists(newLists);
@@ -94,7 +96,7 @@ function App() {
   const handleTaskAdd = (listId, title) => {
     setIsLoading(true);
     axios
-      .post('http://localhost:3001/tasks', {
+      .post(`${JSON_API}/tasks`, {
         listId: listId,
         text: title,
         completed: false
@@ -109,7 +111,7 @@ function App() {
         setLists(newList);        
       })
       .catch(e => {
-        alert('Ошибка при добавлении задачи!');
+        alert('Error by task edding :(');
       })
       .finally(() => {
         setIsLoading(false);
@@ -132,11 +134,11 @@ function App() {
     setIsLoading(true);
 
     axios
-      .patch('http://localhost:3001/tasks/' + taskId, {
+      .patch(`${JSON_API}/tasks/` + taskId, {
         completed: isCompleted
       })
       .catch(() => {
-        alert('Не удалось обновить задачу');
+        alert('Error by updating the task :(');
       })
       .finally(() => {
         setIsLoading(false);
@@ -153,7 +155,7 @@ function App() {
       setLists(newList);
       setIsLoading(true);
       
-      axios.delete('http://localhost:3001/tasks/' + taskId)
+      axios.delete(`${JSON_API}/tasks/` + taskId)
       .catch(() => {
         alert('Error by task deleting :(');
       })
