@@ -167,7 +167,7 @@ function App() {
 
   return (
     <>
-    {window.screen.width > 1023 ? <div className='app'>
+    {window.screen.width > 23 ? <div className='app'>
       
       <div className='app__sidebar'>
         <div>

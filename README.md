@@ -25,6 +25,9 @@ Starts a json-server on port 8000, that watchs a file ./db.json.
 - [http://localhost:8000/tasks](http://localhost:8000/tasks)
 - [http://localhost:8000/colors](http://localhost:8000/colors)
 
+In secons terminal run:
+
+```npm run react-start```
 
 Runs the app on port 3000 in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
