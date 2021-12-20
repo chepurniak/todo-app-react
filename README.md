@@ -34,8 +34,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Functionality
 
-**The app works on displays 1024px width or bigger!**
-The app is not mobile adaptive.
+The app is fixed and not mobile responsive.
 
 The application uses 8-color pallet and default to-do values, that stored in "DB". You can create/rename/delete the lists. You can add or delete tasks, also toggle them as un/completed. All changing would be stored on the server.
 
